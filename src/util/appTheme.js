@@ -6,6 +6,9 @@ export const createAppTheme = (mode) => {
       mode: mode,
       primary: {
         main: "#bf1d1d",
+        light: '#cb4a4a',
+        dark: '#851414',
+        contrastText: '#ffffff',
       },
       secondary: {
         main: "#00c4f3",
