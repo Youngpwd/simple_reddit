@@ -45,6 +45,7 @@ export const popularPostsSlice = createSlice({
 });
 
 export const { setCurrentSort } = popularPostsSlice.actions;
+
 export const selectCurrentSort = (state) => state.popularPosts.currentSort;
 export const selectPosts = (state) => state.popularPosts.posts;
 export const selectLoadingStatus = (state) =>
