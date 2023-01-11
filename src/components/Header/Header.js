@@ -10,21 +10,23 @@ import {
   AppBar,
   Switch,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Header = ({ toggleMode, mode }) => {
   return (
     <Box>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <RedditIcon />
-          </IconButton>
+          <Link to="/">
+            <IconButton
+              size="large"
+              edge="start"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <RedditIcon color="default"/>
+            </IconButton>
+          </Link>
           <Typography
             variant="h6"
             component="div"
