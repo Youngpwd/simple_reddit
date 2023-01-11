@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router";
 import { CssBaseline, Box, Container } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header/Header";
 import { createAppTheme } from "../util/appTheme";
 
 const App = () => {
   const [mode, setMode] = useState("light");
-  
+
   const toggleMode = () => {
     setMode(mode === "light" ? "dark" : "light");
   };
@@ -18,7 +18,7 @@ const App = () => {
         <CssBaseline />
         <Container maxWidth="" disableGutters={true}>
           <Box sx={{ height: "100vh" }}>
-            <Header toggleMode={toggleMode} />
+            <Header toggleMode={toggleMode} mode={mode} />
             {/* <Routes>
               <Route path="/" />
               <Route path="search" />
