@@ -12,14 +12,14 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Select,
-  MenuItem,
   Typography,
   Container,
   Box,
-  CircularProgress,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import Loading from "../../components/Loading/Loading";
+import ErrorPage from "../../components/ErrorPage/ErrorPage";
 
 const PopularPosts = () => {
   const posts = useSelector(selectPosts);
@@ -29,47 +29,50 @@ const PopularPosts = () => {
 
   const dispatch = useDispatch();
 
+  const handleTabChange = (event, newValue) => {
+    dispatch(setCurrentSort(newValue));
+  };
+
   useEffect(() => {
     dispatch(fetchPopularPosts(currentSort));
   }, [dispatch, currentSort]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <>
       <Container maxWidth="md" sx={{ marginTop: "1rem" }}>
-        <Select
+        <Tabs
           value={currentSort}
-          onChange={(e) => dispatch(setCurrentSort(e.target.value))}
-          sx={{ marginBottom: "1rem" }}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
         >
-          <MenuItem value="hot">Hot</MenuItem>
-          <MenuItem value="new">New</MenuItem>
-          <MenuItem value="top">Top</MenuItem>
-        </Select>
-        {posts.map((post) => (
-          <Box key={post.id} sx={{}} mt="2rem">
-            <Card key={post.id} raised={true}>
-              <CardHeader title={post.title} />
-              <CardContent>
-                <Typography variant="subtitle2" color="secondary" >
-                  {" "}
-                  {post.subreddit_name_prefixed}
-                </Typography>
-
-                <CircularProgress size="lg" />
-                <Typography>{post.author}</Typography>
-                <Typography>{post.score}</Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        ))}
+          <Tab label="Hot" value="hot" />
+          <Tab label="New" value="new" />
+          <Tab label="Top" value="top" />
+        </Tabs>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <ErrorPage error={error} />
+        ) : (
+          <>
+            {posts.map((post) => (
+              <Box key={post.id} sx={{}} mt="2rem">
+                <Card key={post.id} raised={true}>
+                  <CardHeader title={post.title} />
+                  <CardContent>
+                    <Typography variant="subtitle2" color="secondary">
+                      {post.subreddit_name_prefixed}
+                    </Typography>
+                    <Typography>{post.author}</Typography>
+                    <Typography>{post.score}</Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </>
+        )}
       </Container>
     </>
   );
