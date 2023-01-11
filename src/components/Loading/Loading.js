@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 
 const Loading = () => {
   return (
-    <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height:"100vh", width: "100vw"}}>
+    <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height:"60vh", margin: "0 auto"}}>
       <Stack spacing={1}>
         {/* For variant="text", adjust the height via font-size */}
         <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
