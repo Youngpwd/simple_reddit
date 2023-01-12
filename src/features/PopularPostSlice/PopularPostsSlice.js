@@ -11,7 +11,7 @@ const initialState = {
 export const fetchPopularPosts = createAsyncThunk(
   "popularPosts/fetchPopularPosts",
   async (sortType) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000)); //remove when done with testing loading
     const result = await axios.get(
       `https://www.reddit.com/r/popular/${sortType}.json`
     );
@@ -20,7 +20,7 @@ export const fetchPopularPosts = createAsyncThunk(
   }
 );
 
-export const popularPostsSlice = createSlice({
+const popularPostsSlice = createSlice({
   name: "popularPosts",
   initialState,
   reducers: {
