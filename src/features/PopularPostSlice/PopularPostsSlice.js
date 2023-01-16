@@ -8,18 +8,6 @@ const initialState = {
   error: null,
 };
 
-export const fetchPopularPosts = createAsyncThunk(
-  "popularPosts/fetchPopularPosts",
-  async (sortType) => {
-    // await new Promise((resolve) => setTimeout(resolve, 2000)); //remove when done with testing loading
-    const result = await axios.get(
-      `https://www.reddit.com/r/popular/${sortType}.json`
-    );
-    console.log(result);
-    return result.data.data.children.map((post) => post.data);
-  }
-);
-
 const popularPostsSlice = createSlice({
   name: "popularPosts",
   initialState,
@@ -43,6 +31,18 @@ const popularPostsSlice = createSlice({
       });
   },
 });
+
+export const fetchPopularPosts = createAsyncThunk(
+  "popularPosts/fetchPopularPosts",
+  async (sortType) => {
+    // await new Promise((resolve) => setTimeout(resolve, 2000)); //remove when done with testing loading
+    const result = await axios.get(
+      `https://www.reddit.com/r/popular/${sortType}.json`
+    );
+    console.log(result);
+    return result.data.data.children.map((post) => post.data);
+  }
+);
 
 export const { setCurrentSort } = popularPostsSlice.actions;
 
