@@ -62,3 +62,13 @@ export const createAppTheme = (mode) => {
   });
   return appTheme;
 };
+
+
+export const scrollTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#bf1d1d",
+    }
+  }
+});
