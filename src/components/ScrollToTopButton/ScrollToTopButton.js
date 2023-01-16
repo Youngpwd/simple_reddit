@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconButton, ThemeProvider } from "@mui/material";
 import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
-import "./ScrollToTopButton.css";
 import { scrollTheme } from "../../util/appTheme";
 
 const ScrollToTopButton = () => {
