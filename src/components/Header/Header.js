@@ -22,9 +22,12 @@ const Header = ({ toggleMode, mode }) => {
               size="large"
               edge="start"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              sx={{
+                mr: 2,
+                color: mode === "light" ? "#fff" : "#bf1d1d",
+              }}
             >
-              <RedditIcon color="default"/>
+              <RedditIcon />
             </IconButton>
           </Link>
           <Typography
