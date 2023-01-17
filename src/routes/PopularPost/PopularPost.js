@@ -17,6 +17,7 @@ import {
   Box,
   Tabs,
   Tab,
+  Button,
 } from "@mui/material";
 import Loading from "../../components/Loading/Loading";
 import ErrorPage from "../../components/ErrorPage/ErrorPage";
@@ -71,6 +72,7 @@ const PopularPosts = () => {
                 </Card>
               </Box>
             ))}
+            <Button variant="outlined">Load More</Button>
           </>
         )}
       </Container>
