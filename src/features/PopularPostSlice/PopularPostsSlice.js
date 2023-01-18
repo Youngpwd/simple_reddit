@@ -37,7 +37,7 @@ export const fetchPopularPosts = createAsyncThunk(
   async (sortType) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000)); //remove when done with testing loading
     const result = await axios.get(
-      `https://www.reddit.com/r/popular/${sortType}.json`
+      `https://www.reddit.com/r/popular/${sortType}.json?limit=100`
     );
     console.log(result);
     return result.data.data.children.map((post) => post.data);
