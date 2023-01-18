@@ -4,7 +4,7 @@ import { CssBaseline, Box, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header/Header";
 import { createAppTheme } from "../util/appTheme";
-import PopularPosts from "../routes/PopularPost/PopularPost";
+import PopularPosts from "../routes/PopularPost/PopularPosts";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
 
 const App = () => {
