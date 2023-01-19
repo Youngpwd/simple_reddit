@@ -24,6 +24,7 @@ import Loading from "../../components/Loading/Loading";
 import ErrorPage from "../../components/ErrorPage/ErrorPage";
 import { formattedTime } from "../../util/formatTime";
 import ReactPlayer from "react-player";
+import "./PopularPosts.css";
 
 const PopularPosts = () => {
   const posts = useSelector(selectPosts);
@@ -76,44 +77,59 @@ const PopularPosts = () => {
             {posts.slice(0, offset).map((post) => (
               <Box key={post.id} mt="2rem">
                 <Card raised={true}>
-                  <CardHeader title={post.title} />
+                  <CardHeader title={post.title} align="center" />
                   {post.post_hint === "hosted:video" ? (
                     <Container maxWidth="sm">
                       <ReactPlayer
+                        className="post-video"
                         url={post.secure_media.reddit_video.hls_url}
                         controls={true}
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "540px",
-                          objectFit: "contain",
-                          backgroundColor: "#000",
-                        }}
                       />
                     </Container>
-                  ) : post.preview ? (
+                  ) : post.post_hint === "image" ? (
                     <Container maxWidth="sm">
-                      <CardMedia
-                        component="img"
-                        image={post.url_overridden_by_dest}
-                        alt={post.title}
-                        sx={{
-                          objectFit: "cover",
-                          maxWidth: "100%",
-                          maxHeight: "540px",
-                          width: "100%",
-                        }}
-                      />
+                      <a
+                        href={post.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <CardMedia
+                          component="img"
+                          image={post.url_overridden_by_dest}
+                          alt={post.title}
+                          sx={{ maxHeight: "540px" }}
+                        />
+                      </a>
+                    </Container>
+                  ) : post.post_hint === "link" ? (
+                    <Container maxWidth="xs" sx={{ float: "right" }}>
+                      <a
+                        className="thumbnail-link"
+                        href={post.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <CardMedia
+                          component="img"
+                          image={post.thumbnail || post.url_overridden_by_dest}
+                          style={{
+                            width: `${post.thumbnail_width}px`,
+                            height: `${post.thumbnail_height}px`,
+                          }}
+                        />
+                        <div className="link-overlay">{post.domain}</div>
+                      </a>
                     </Container>
                   ) : null}
                   <CardContent>
                     <Typography variant="subtitle2" color="secondary">
                       {post.subreddit_name_prefixed}
                     </Typography>
-                    <Typography variant="subtitle2" color="textSecondary">
+                    <Typography variant="caption" color="textSecondary">
                       posted by {post.author} {formattedTime(post.created_utc)}
                     </Typography>
-                    <Typography>{post.score} points</Typography>
-                    <Typography>{post.num_comments} comments</Typography>
+                    <Typography align="left" mt={2}>{post.score} points</Typography>
+                    <Typography align="left">{post.num_comments} comments</Typography>
                   </CardContent>
                 </Card>
               </Box>
