@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { IconButton, ThemeProvider } from "@mui/material";
+import { IconButton } from "@mui/material";
 import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
-import { scrollTheme } from "../../util/appTheme";
 
 const ScrollToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
@@ -27,23 +26,21 @@ const ScrollToTopButton = () => {
 
   return (
     showButton && (
-      <ThemeProvider theme={scrollTheme}>
-        <IconButton
-          sx={{ position: "absolute", right: "10rem" }}
-          onClick={handleClick}
-          color="primary"
-        >
-          <ArrowUpwardRoundedIcon
-            sx={{
-              width: "4rem",
-              height: "4rem",
-              boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-              borderRadius: 8,
-              padding: "1rem",
-            }}
-          />
-        </IconButton>
-      </ThemeProvider>
+      <IconButton
+        sx={{ position: "absolute", right: "10rem" }}
+        onClick={handleClick}
+        color="primary"
+      >
+        <ArrowUpwardRoundedIcon
+          sx={{
+            width: "4rem",
+            height: "4rem",
+            boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+            borderRadius: 8,
+            padding: "1rem",
+          }}
+        />
+      </IconButton>
     )
   );
 };
