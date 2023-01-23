@@ -6,6 +6,8 @@ import Header from "../components/Header/Header";
 import { createAppTheme } from "../util/appTheme";
 import PopularPosts from "../routes/PopularPost/PopularPosts";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
+import Subreddit from "../routes/Subreddit/Subreddit";
+
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -23,11 +25,11 @@ const App = () => {
 
           <Box>
             <Routes>
-              <Route path="/" element={<PopularPosts />} />
-              {/* <Route path="search" />
-              <Route path="r">
-                <Route path=":subreddit" />
-              </Route> */}
+              <Route path="/" element={<PopularPosts />}>
+                <Route path="/r" element={<PopularPosts/>}>
+                  <Route path=":subreddit" element={<Subreddit/>}></Route>
+                </Route>
+              </Route>
             </Routes>
           </Box>
 
