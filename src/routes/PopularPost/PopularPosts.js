@@ -64,7 +64,7 @@ const PopularPosts = () => {
           textColor="primary"
           centered
         >
-          <Tab label="Hot" value="hot" />
+          <Tab label="Hot" value="hot" /> 
           <Tab label="New" value="new" />
           <Tab label="Top" value="top" />
         </Tabs>
@@ -128,8 +128,12 @@ const PopularPosts = () => {
                     <Typography variant="caption" color="textSecondary">
                       posted by {post.author} {formattedTime(post.created_utc)}
                     </Typography>
-                    <Typography align="left" mt={2}>{post.score} points</Typography>
-                    <Typography align="left">{post.num_comments} comments</Typography>
+                    <Typography align="left" mt={2}>
+                      {post.score} points
+                    </Typography>
+                    <Typography align="left">
+                      {post.num_comments} comments
+                    </Typography>
                   </CardContent>
                 </Card>
               </Box>
