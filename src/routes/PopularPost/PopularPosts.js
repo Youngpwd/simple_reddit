@@ -24,7 +24,7 @@ import Loading from "../../components/Loading/Loading";
 import ErrorPage from "../../components/ErrorPage/ErrorPage";
 import { formattedTime } from "../../util/formatTime";
 import ReactPlayer from "react-player";
-import "./PopularPosts.css";
+import { Link } from "react-router-dom";
 
 const PopularPosts = () => {
   const posts = useSelector(selectPosts);
@@ -64,7 +64,7 @@ const PopularPosts = () => {
           textColor="primary"
           centered
         >
-          <Tab label="Hot" value="hot" /> 
+          <Tab label="Hot" value="hot" />
           <Tab label="New" value="new" />
           <Tab label="Top" value="top" />
         </Tabs>
@@ -123,7 +123,16 @@ const PopularPosts = () => {
                   ) : null}
                   <CardContent>
                     <Typography variant="subtitle2" color="secondary">
-                      {post.subreddit_name_prefixed}
+                      <Link
+                        to={`/${post.subreddit_name_prefixed}`}
+                        style={{ textDecoration: "none", color: "#00c4f3" }}
+                        // onClick={() =>
+                        //   handleLinkClick(post.subreddit_name_prefixed)
+                        // }
+                      >
+                        {" "}
+                        {post.subreddit_name_prefixed}
+                      </Link>
                     </Typography>
                     <Typography variant="caption" color="textSecondary">
                       posted by {post.author} {formattedTime(post.created_utc)}
