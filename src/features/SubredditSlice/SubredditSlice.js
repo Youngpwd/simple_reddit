@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   posts: [],
+  about: {},
   currentSort: "hot",
   status: "idle",
   error: null,
@@ -23,7 +24,8 @@ const subredditSlice = createSlice({
       })
       .addCase(fetchSubreddit.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.posts = action.payload;
+        state.about = action.payload.about;
+        state.posts = action.payload.posts;
       })
       .addCase(fetchSubreddit.rejected, (state, action) => {
         state.status = "failed";
@@ -36,11 +38,23 @@ export const fetchSubreddit = createAsyncThunk(
   "subreddit/fetchSubreddit",
   async (payload) => {
     const { sortType, subreddit } = payload;
-    const result = await axios.get(
+    let aboutResult;
+    try {
+       aboutResult = await axios.get(
+        `https://www.reddit.com/r/${subreddit}/about.json`
+      )
+    } catch (error) {
+      console.log(error)
+    }
+    const postsResult = await axios.get(
       `https://www.reddit.com/r/${subreddit}/${sortType}.json?limit=100`
     );
-    console.log(result);
-    return result.data.data.children.map((post) => post.data);
+    console.log(aboutResult.data.data);
+    console.log(postsResult.data.data);
+    return {
+      about: aboutResult.data.data,
+      posts: postsResult.data.data.children.map((post) => post.data),
+    };
   }
 );
 
