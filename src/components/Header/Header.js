@@ -12,11 +12,15 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const Header = ({ toggleMode, mode }) => {
+const modeStyle = { width: "1em", height: "none", m: "auto 0" };
+
+const Header = ({ toggleMode, mode, matches }) => {
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar
+          sx={{ justifyContent: "space-between", alignContent: "center" }}
+        >
           <Link to="/">
             <IconButton
               size="large"
@@ -30,16 +34,32 @@ const Header = ({ toggleMode, mode }) => {
               <RedditIcon />
             </IconButton>
           </Link>
-          <Typography
-            variant="h6"
+
+          {matches ? (
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1 }}
+              noWrap={true}
+            >
+              Simple Reddit
+            </Typography>
+          ) : null}
+          <Box
             component="div"
-            sx={{ flexGrow: 1 }}
-            noWrap={true}
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignContent: "center",
+            }}
           >
-            Simple Reddit
-          </Typography>
-          {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
-          <Switch edge="end" onClick={() => toggleMode()} />
+            {mode === "light" ? (
+              <Brightness7Icon sx={modeStyle} />
+            ) : (
+              <Brightness4Icon sx={modeStyle} />
+            )}
+            <Switch edge="end" onClick={() => toggleMode()} />
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
