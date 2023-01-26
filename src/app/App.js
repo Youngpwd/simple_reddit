@@ -24,13 +24,16 @@ const App = () => {
       <ThemeProvider theme={createAppTheme(mode)}>
         <CssBaseline />
         <Container maxWidth={false} disableGutters={true}>
-          <Header toggleMode={toggleMode} mode={mode} matches={matches}/>
+          <Header toggleMode={toggleMode} mode={mode} matches={matches} />
 
           <Box>
             <Routes>
-              <Route path="/" element={<PopularPosts />} />
+              <Route path="/" element={<PopularPosts matches={matches} />} />
               <Route path="/r">
-                <Route path=":subreddit" element={<Subreddit matches={matches} />} />
+                <Route
+                  path=":subreddit"
+                  element={<Subreddit matches={matches} />}
+                />
               </Route>
             </Routes>
           </Box>
