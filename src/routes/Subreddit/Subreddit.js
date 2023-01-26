@@ -76,6 +76,7 @@ const Subreddit = ({ matches }) => {
           height: `${matches ? "200px" : "120px"}`,
           objectFit: "cover",
         }}
+        
       />
       <Grid
         container
