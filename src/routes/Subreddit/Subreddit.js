@@ -60,20 +60,22 @@ const Subreddit = ({ matches }) => {
     dispatch(setCurrentSort(newValue));
   };
 
+  const imageBanner = () => {
+    return about.banner_background_image?.length > 0
+      ? about.banner_background_image.split("?")[0]
+      : about.mobile_banner_image !== ""
+      ? about.mobile_banner_image
+      : about.header_img !== ""
+      ? about.header_img
+      : null;
+  };
+
   return (
     <>
       {!loading ? (
         <CardMedia
           component="img"
-          image={
-            about.banner_background_image !== ""
-              ? about.banner_background_image.split("?")[0]
-              : about.mobile_banner_image !== ""
-              ? about.mobile_banner_image
-              : about.header_img !== ""
-              ? about.header_img
-              : null
-          }
+          image={imageBanner()}
           sx={{
             width: "100%",
             height: matches ? "200px" : "auto",
