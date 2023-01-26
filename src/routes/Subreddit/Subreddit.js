@@ -62,87 +62,94 @@ const Subreddit = ({ matches }) => {
 
   return (
     <>
-      <CardMedia
-        component="img"
-        image={
-          about.mobile_banner_image !== ""
-            ? about.mobile_banner_image
-            : about.banner_background_image !== ""
-            ? about.banner_background_image.split("?")[0]
-            : about.header_img
-        }
-        sx={{
-          width: "100%",
-          height: `${matches ? "200px" : "120px"}`,
-          objectFit: "cover",
-        }}
-        
-      />
+      {!loading ? (
+        <CardMedia
+          component="img"
+          image={
+            about.banner_background_image !== ""
+              ? about.banner_background_image.split("?")[0]
+              : about.mobile_banner_image !== ""
+              ? about.mobile_banner_image
+              : about.header_img !== ""
+              ? about.header_img
+              : null
+          }
+          sx={{
+            width: "100%",
+            height: matches ? "200px" : "auto",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      ) : null}
+
       <Grid
         container
-        spacing={1}
-        sx={{ marginTop: "1rem" }}
+        spacing={0}
+        sx={{ marginTop: matches ? "1rem" : "0px" }}
         justifyContent="center"
       >
         <Grid item xs={12} sm={3} mt={3}>
-          <Card>
-            <CardMedia
-              component="img"
-              image={
-                about.icon_img !== ""
-                  ? about.icon_img
-                  : about.community_icon !== ""
-                  ? about.community_icon.split("?")[0]
-                  : null
-              }
-              sx={{
-                width: "100px",
-                height: "100px",
-                objectFit: "contain",
-                borderRadius: "50%",
-                marginTop: "1rem",
-              }}
-            />
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="h2"
-                align="center"
-              >
-                r/{subreddit}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                align="center"
-                component="p"
-                mt={3}
-                mb={4}
-              >
-                {about.public_description}
-              </Typography>
-              <hr style={{ marginBottom: "1rem" }} />
-              <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+          {!loading ? (
+            <Card>
+              <CardMedia
+                component="img"
+                image={
+                  about.icon_img !== ""
+                    ? about.icon_img
+                    : about.community_icon !== ""
+                    ? about.community_icon.split("?")[0]
+                    : null
+                }
+                sx={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "contain",
+                  borderRadius: "50%",
+                  marginTop: "1rem",
+                }}
+              />
+              <CardContent>
                 <Typography
-                  variant="caption"
-                  component="span"
-                  align="left"
-                  p={1}
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                  align="center"
                 >
-                  Active Users: <b> {formatNumber(about.active_user_count)} </b>
+                  r/{subreddit}
                 </Typography>
                 <Typography
-                  variant="caption"
-                  component="span"
-                  align="right"
-                  p={1}
+                  variant="body2"
+                  color="textSecondary"
+                  align="center"
+                  component="p"
+                  mt={3}
+                  mb={4}
                 >
-                  Subscribers:<b> {formatNumber(about.subscribers)}</b>
+                  {about.public_description}
                 </Typography>
-              </Box>
-            </CardContent>
-          </Card>
+                <hr style={{ marginBottom: "1rem" }} />
+                <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+                  <Typography
+                    variant="caption"
+                    component="span"
+                    align="left"
+                    p={1}
+                  >
+                    Active Users:{" "}
+                    <b> {formatNumber(about.active_user_count)} </b>
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    component="span"
+                    align="right"
+                    p={1}
+                  >
+                    Subscribers:<b> {formatNumber(about.subscribers)}</b>
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          ) : null}
         </Grid>
         <Grid item xs={12} sm={9}>
           <Container
@@ -160,7 +167,7 @@ const Subreddit = ({ matches }) => {
               <Tab label="New" value="new" />
               <Tab label="Top" value="top" />
             </Tabs>
-            {loading ? (
+            {loading ? ( //potentially put this at start of return, remove the other loading check****
               <Loading />
             ) : error ? (
               <ErrorPage error={error} />
