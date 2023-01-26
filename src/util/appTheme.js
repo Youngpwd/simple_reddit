@@ -19,7 +19,8 @@ export const createAppTheme = (mode) => {
       MuiCardMedia: {
         styleOverrides: {
           root: {
-            objectFit: "cover",
+            // objectFit: "cover",
+            objectFit: "contain",
             maxWidth: "100%",
             width: "100%",
             margin: "0px auto ",
