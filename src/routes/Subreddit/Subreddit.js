@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCurrentSort,
@@ -22,16 +22,19 @@ const Subreddit = ({ matches }) => {
   const error = useSelector(selectSubredditError);
   const currentSort = useSelector(selectSubredditCurrentSort);
 
-  const { subreddit } = useParams();
-
   const [offset, setOffset] = useState(10);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const dispatch = useDispatch();
+  const hasFetched = useRef(false);
+  const { subreddit } = useParams();
 
   useEffect(() => {
-    dispatch(fetchSubreddit({ sortType: currentSort, subreddit: subreddit }));
-  }, [dispatch, currentSort, subreddit]);
+    if (!hasFetched.current) {
+      dispatch(fetchSubreddit({ sortType: currentSort, subreddit: subreddit }));
+      hasFetched.current = true;
+    }
+  }, [currentSort, subreddit, dispatch]);
 
   const loadMorePost = () => {
     setOffset(offset + 10);
@@ -43,6 +46,7 @@ const Subreddit = ({ matches }) => {
   const handleTabChange = (event, newValue) => {
     setOffset(10);
     setButtonDisabled(false);
+    hasFetched.current = false;
     dispatch(setCurrentSort(newValue));
   };
 
@@ -77,7 +81,6 @@ const Subreddit = ({ matches }) => {
                 loadMorePost={loadMorePost}
               />
             </Grid>
-            
           </Grid>
         </>
       )}

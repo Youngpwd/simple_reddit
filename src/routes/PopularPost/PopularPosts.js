@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCurrentSort,
@@ -22,9 +22,13 @@ const PopularPosts = ({ matches }) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const dispatch = useDispatch();
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchPopularPosts(currentSort));
+    if (!hasFetched.current) {
+      dispatch(fetchPopularPosts(currentSort));
+      hasFetched.current = true;
+    }
   }, [dispatch, currentSort]);
 
   const loadMorePost = () => {
@@ -37,6 +41,7 @@ const PopularPosts = ({ matches }) => {
   const handleTabChange = (event, newValue) => {
     setOffset(10);
     setButtonDisabled(false);
+    hasFetched.current = false;
     dispatch(setCurrentSort(newValue));
   };
 
