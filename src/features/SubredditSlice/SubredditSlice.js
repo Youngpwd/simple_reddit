@@ -49,8 +49,7 @@ export const fetchSubreddit = createAsyncThunk(
     const postsResult = await axios.get(
       `https://www.reddit.com/r/${subreddit}/${sortType}.json?limit=100`
     );
-    console.log(aboutResult.data.data);
-    console.log(postsResult.data.data);
+    console.log(aboutResult.data.data, postsResult.data.data);
     return {
       about: aboutResult.data.data,
       posts: postsResult.data.data.children.map((post) => post.data),
@@ -67,5 +66,6 @@ export const selectSubredditPosts = (state) => state.subreddit.posts;
 export const selectSubredditLoadingStatus = (state) =>
   state.subreddit.status === "loading";
 export const selectSubredditError = (state) => state.subreddit.error;
+export const selectSubredditAbout = (state) => state.subreddit.about;
 
 export default subredditSlice.reducer;
