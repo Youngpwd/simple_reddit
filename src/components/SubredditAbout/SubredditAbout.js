@@ -15,7 +15,7 @@ const SubredditAbout = ({ subredditName }) => {
             ? about.icon_img
             : about.community_icon !== ""
             ? about.community_icon.split("?")[0]
-            : null
+            : "https://via.placeholder.com/150/bf1d1d?Text=Missing+Img"
         }
         sx={{
           width: "100px",
