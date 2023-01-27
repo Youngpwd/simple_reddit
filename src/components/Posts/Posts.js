@@ -116,7 +116,7 @@ const Posts = ({
             </Card>
           </Box>
         ))}
-        {!buttonDisabled && (
+        {!buttonDisabled && posts.length > 10 && (
           <Button variant="outlined" onClick={loadMorePost}>
             Load More
           </Button>

@@ -33,7 +33,7 @@ const PopularPosts = ({ matches }) => {
 
   const loadMorePost = () => {
     setOffset(offset + 10);
-    if (offset === 90) {
+    if (offset >= posts.length) {
       setButtonDisabled(!buttonDisabled);
     }
   };
