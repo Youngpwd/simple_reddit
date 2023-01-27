@@ -20,7 +20,7 @@ export const createAppTheme = (mode) => {
         styleOverrides: {
           root: {
             // objectFit: "cover",
-            objectFit: "contain",
+            objectFit: "cover",
             maxWidth: "100%",
             width: "100%",
             margin: "0px auto ",
