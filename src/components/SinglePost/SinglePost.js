@@ -12,10 +12,14 @@ import {
   CardContent,
 } from "@mui/material";
 
-const SinglePost = ({ post, matches }) => {
+const SinglePost = ({ post, matches, handleOpen }) => {
   return (
     <Box key={post.id} mt="2rem">
-      <Card raised={true}>
+      <Card
+        raised={true}
+        onClick={() => handleOpen(post)}
+        sx={{ cursor: "pointer" }}
+      >
         <CardHeader
           title={post.title}
           align="center"
