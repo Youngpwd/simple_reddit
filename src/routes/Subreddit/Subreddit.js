@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import SubredditBanner from "../../components/SubredditBanner/SubredditBanner";
 import SubredditAbout from "../../components/SubredditAbout/SubredditAbout";
 import Posts from "../../components/Posts/Posts";
+import { subredditPostsStyle } from "../../util/appTheme";
 
 const Subreddit = ({ matches }) => {
   const posts = useSelector(selectSubredditPosts);
@@ -79,6 +80,7 @@ const Subreddit = ({ matches }) => {
                 offset={offset}
                 buttonDisabled={buttonDisabled}
                 loadMorePost={loadMorePost}
+                style={subredditPostsStyle}
               />
             </Grid>
           </Grid>

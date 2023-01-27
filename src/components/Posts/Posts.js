@@ -23,9 +23,10 @@ const Posts = ({
   offset,
   buttonDisabled,
   loadMorePost,
+  style,
 }) => {
   return (
-    <Container maxWidth="md" sx={{ margin: "auto" }}>
+    <Container maxWidth="md" sx={matches ? style : { margin: "auto" }}>
       <Tabs
         value={currentSort}
         onChange={handleTabChange}

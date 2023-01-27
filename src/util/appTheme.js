@@ -32,5 +32,6 @@ export const createAppTheme = (mode) => {
   return appTheme;
 };
 
-
-
+export const subredditPostsStyle = {
+  margin: "auto 2rem",
+};
