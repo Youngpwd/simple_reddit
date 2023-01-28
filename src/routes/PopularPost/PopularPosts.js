@@ -17,7 +17,8 @@ const PopularPosts = ({ matches }) => {
   const loading = useSelector(selectLoadingStatus);
   const error = useSelector(selectError);
   const currentSort = useSelector(selectCurrentSort);
-
+  
+  //maybe move offset, and buttonDisabled to popularPost state?????
   const [offset, setOffset] = useState(10);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
