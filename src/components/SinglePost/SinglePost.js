@@ -11,8 +11,17 @@ import {
   Typography,
   CardContent,
 } from "@mui/material";
+import { setPost, setPostOpen } from "../../features/PostSlice/PostSlice";
+import { useDispatch } from "react-redux";
 
-const SinglePost = ({ post, matches, handleOpen }) => {
+const SinglePost = ({ post, matches }) => {
+  const dispatch = useDispatch();
+
+  const handleOpen = (post) => {
+    dispatch(setPost(post));
+    dispatch(setPostOpen(true));
+  };
+
   return (
     <Box key={post.id} mt="2rem">
       <Card
@@ -37,7 +46,7 @@ const SinglePost = ({ post, matches, handleOpen }) => {
           </Container>
         ) : post.post_hint === "image" ? (
           <Container maxWidth="sm">
-            <a href={post.url} target="_blank" rel="noopener noreferrer">
+            {/* <a href={post.url} target="_blank" rel="noopener noreferrer"> */}
               <CardMedia
                 component="img"
                 image={post.url_overridden_by_dest}
@@ -46,7 +55,7 @@ const SinglePost = ({ post, matches, handleOpen }) => {
                   maxHeight: `${matches ? "540px" : "200px"}`,
                 }}
               />
-            </a>
+            {/* </a> */}
           </Container>
         ) : post.post_hint === "link" ? (
           <Container maxWidth="xs" sx={{ float: "right" }}>
