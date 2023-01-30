@@ -22,6 +22,10 @@ const SinglePost = ({ post, matches }) => {
     dispatch(setPostOpen(true));
   };
 
+  const handlePlayerClick = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <Box key={post.id} mt="2rem">
       <Card
@@ -42,20 +46,19 @@ const SinglePost = ({ post, matches }) => {
               className="post-video"
               url={post.secure_media.reddit_video.hls_url}
               controls={true}
+              onClick={handlePlayerClick}
             />
           </Container>
         ) : post.post_hint === "image" ? (
           <Container maxWidth="sm">
-            {/* <a href={post.url} target="_blank" rel="noopener noreferrer"> */}
-              <CardMedia
-                component="img"
-                image={post.url_overridden_by_dest}
-                alt={post.title}
-                sx={{
-                  maxHeight: `${matches ? "540px" : "200px"}`,
-                }}
-              />
-            {/* </a> */}
+            <CardMedia
+              component="img"
+              image={post.url_overridden_by_dest}
+              alt={post.title}
+              sx={{
+                maxHeight: `${matches ? "540px" : "200px"}`,
+              }}
+            />
           </Container>
         ) : post.post_hint === "link" ? (
           <Container maxWidth="xs" sx={{ float: "right" }}>
