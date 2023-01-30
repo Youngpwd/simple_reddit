@@ -39,7 +39,7 @@ const Posts = ({
             Load More
           </Button>
         )}
-        {open && <PostModal open={open} />}
+        {open && <PostModal open={open} matches={matches} />}
       </>
     </Container>
   );
