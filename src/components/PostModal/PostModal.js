@@ -8,12 +8,13 @@ import {
   CardHeader,
   CardContent,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectPost,
   setPost,
   setPostOpen,
+  fetchComments,
 } from "../../features/PostSlice/PostSlice";
 import { formattedTime } from "../../util/formatTime";
 import ReactPlayer from "react-player";
@@ -22,12 +23,18 @@ import { modalStyle } from "../../util/appTheme";
 
 const PostModal = ({ open, matches }) => {
   const dispatch = useDispatch();
-
+  const hasFetched = useRef(false);
   const post = useSelector(selectPost);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!hasFetched.current) {
+      dispatch(fetchComments(post.permalink));
+      hasFetched.current = true;
+    }
+  }, [dispatch, post.permalink]);
 
   const handleClose = () => {
+    hasFetched.current = false;
     dispatch(setPostOpen(false));
     dispatch(setPost({}));
   };
