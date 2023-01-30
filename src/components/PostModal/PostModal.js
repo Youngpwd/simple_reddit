@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardContent,
 } from "@mui/material";
-import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectPost,
@@ -18,23 +18,14 @@ import {
 import { formattedTime } from "../../util/formatTime";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { modalStyle } from "../../util/appTheme";
 
 const PostModal = ({ open, matches }) => {
   const dispatch = useDispatch();
 
   const post = useSelector(selectPost);
+
+  useEffect(() => {}, []);
 
   const handleClose = () => {
     dispatch(setPostOpen(false));
@@ -43,7 +34,7 @@ const PostModal = ({ open, matches }) => {
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
+      <Box sx={modalStyle}>
         <Card raised={true}>
           <CardHeader
             title={post.title}
@@ -63,14 +54,14 @@ const PostModal = ({ open, matches }) => {
           ) : post.post_hint === "image" ? (
             <Container maxWidth="sm">
               <a href={post.url} target="_blank" rel="noopener noreferrer">
-              <CardMedia
-                component="img"
-                image={post.url_overridden_by_dest}
-                alt={post.title}
-                sx={{
-                  maxHeight: `${matches ? "540px" : "200px"}`,
-                }}
-              />
+                <CardMedia
+                  component="img"
+                  image={post.url_overridden_by_dest}
+                  alt={post.title}
+                  sx={{
+                    maxHeight: `${matches ? "540px" : "200px"}`,
+                  }}
+                />
               </a>
             </Container>
           ) : post.post_hint === "link" ? (

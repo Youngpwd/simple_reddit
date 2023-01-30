@@ -35,3 +35,16 @@ export const createAppTheme = (mode) => {
 export const subredditPostsStyle = {
   margin: "auto 2rem",
 };
+
+
+export const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  bgcolor: "background.paper",
+  border: "2px solid #bf1d1d",
+  boxShadow: 24,
+  p: 4,
+};
