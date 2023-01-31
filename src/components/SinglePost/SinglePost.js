@@ -99,7 +99,9 @@ const SinglePost = ({ post, matches }) => {
           <Typography align="left" mt={2}>
             {post.score} points
           </Typography>
-          <Typography align="left">{post.num_comments} comments</Typography>
+          <Typography align="left">
+            {post.num_comments > 1 ? post.num_comments : 0} comments
+          </Typography>
         </CardContent>
       </Card>
     </Box>
