@@ -26,6 +26,7 @@ import Comments from "../Comments/Comments";
 import Loading from "../Loading/Loading";
 import ErrorPage from "../ErrorPage/ErrorPage";
 
+
 const PostModal = ({ open, matches }) => {
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
@@ -46,6 +47,25 @@ const PostModal = ({ open, matches }) => {
     dispatch(setPost({}));
   };
 
+  const postBody = (post) => {
+    if (post.selftext) {
+      return post.selftext;
+    } else if (post.url) {
+      return (
+        <a
+          href={post.url}
+          style={{
+            color: post.author_flair_background_color
+              ? `${post.author_flair_background_color}`
+              : "#851414",
+          }}
+        >
+          {post.domain}
+        </a>
+      );
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -54,7 +74,12 @@ const PostModal = ({ open, matches }) => {
         <ErrorPage />
       ) : (
         <Modal open={open} onClose={handleClose}>
-          <Box sx={{...modalStyle, height: post.num_comments === 0 ? "auto" : 900 }}>
+          <Box
+            sx={{
+              ...modalStyle,
+              height: post.num_comments === 0 ? "auto" : 900,
+            }}
+          >
             <Card raised={true}>
               <CardHeader
                 title={post.title}
@@ -104,6 +129,11 @@ const PostModal = ({ open, matches }) => {
                   </a>
                 </Container>
               ) : null}
+              <CardContent>
+                <Typography variant="body1" align="justify">
+                  {postBody(post)}
+                </Typography>
+              </CardContent>
               <CardContent>
                 <Typography variant="subtitle2" color="secondary">
                   <Link
