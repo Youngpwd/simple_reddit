@@ -88,6 +88,7 @@ const SinglePost = ({ post, matches }) => {
                 textDecoration: "none",
                 color: "#00c4f3",
               }}
+              onClick={handlePlayerClick}
             >
               {" "}
               {post.subreddit_name_prefixed}
