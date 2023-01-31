@@ -26,7 +26,6 @@ import Comments from "../Comments/Comments";
 import Loading from "../Loading/Loading";
 import ErrorPage from "../ErrorPage/ErrorPage";
 
-
 const PostModal = ({ open, matches }) => {
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
@@ -57,7 +56,7 @@ const PostModal = ({ open, matches }) => {
           style={{
             color: post.author_flair_background_color
               ? `${post.author_flair_background_color}`
-              : "#851414",
+              : "#00c4f3",
           }}
         >
           {post.domain}
@@ -154,14 +153,24 @@ const PostModal = ({ open, matches }) => {
                   {post.score} points
                 </Typography>
                 <Typography align="left">
-                  {post.num_comments} comments
+                  {post.num_comments > 1 ? post.num_comments : 0} comments
                 </Typography>
               </CardContent>
               <CardContent>
-                {post.num_comments > 0 && (
-                  <div style={{ overflowY: "scroll", height: "500px" }}>
-                    <Comments />
-                  </div>
+                {!post.num_comments ? (
+                  <Typography variant="body2">{post.body}</Typography>
+                ) : (
+                  post.num_comments > 0 && (
+                    <div
+                      style={{
+                        overflowY: "scroll",
+                        overflowX: "hidden",
+                        height: "500px",
+                      }}
+                    >
+                      <Comments />
+                    </div>
+                  )
                 )}
               </CardContent>
             </Card>
