@@ -12,7 +12,7 @@ import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, breakPointUp }) => {
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -41,12 +41,21 @@ const Comment = ({ comment }) => {
           <ListItemAvatar>
             <Avatar
               alt={comment.author}
-              src={userData.icon_img.split("?")[0] }
-              style={{ width: 50, height: 50 }}
+              src={userData.icon_img.split("?")[0]}
+              style={{
+                width: breakPointUp ? 50 : 30,
+                height: breakPointUp ? 50 : 30,
+              }}
             />
           </ListItemAvatar>
         ) : null}
-        <ListItemText primary={comment.author} secondary={comment.body} />
+        <ListItemText
+          primaryTypographyProps={{
+            variant: breakPointUp ? "subtitle" : "caption",
+          }}
+          primary={comment.author}
+          secondary={comment.body}
+        />
         {comment.replies && comment.replies.data?.children.length > 1 && (
           <ListItemButton
             onClick={handleClick}
@@ -57,7 +66,7 @@ const Comment = ({ comment }) => {
                 (reply) => reply.data.author && reply.data.author.length !== 0
               ).length
             }{" "}
-            Replies
+            {breakPointUp ? "Replies" : null}
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         )}
@@ -65,13 +74,17 @@ const Comment = ({ comment }) => {
       <Divider />
       <Collapse in={open} timeout="auto" unmountOnExit>
         {comment.replies && (
-          <List disablePadding sx={{ marginLeft: "30px" }}>
+          <List disablePadding sx={{ marginLeft: breakPointUp ? "30px" : 0 }}>
             {comment.replies.data.children
               .filter(
                 (reply) => reply.data.author && reply.data.author.length !== 0
               )
               .map((reply) => (
-                <Comment key={reply.data.id} comment={reply.data} />
+                <Comment
+                  key={reply.data.id}
+                  comment={reply.data}
+                  breakPointUp={breakPointUp}
+                />
               ))}
           </List>
         )}

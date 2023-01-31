@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import { selectComments } from "../../features/PostSlice/PostSlice";
-import { List } from "@mui/material";
+import { List, useMediaQuery } from "@mui/material";
 import Comment from "./Comment";
+import { useTheme } from "@mui/material/styles";
 
 const Comments = () => {
   const comments = useSelector(selectComments);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <List sx={{ width: "100" }}>
@@ -16,7 +19,7 @@ const Comments = () => {
             comment.author.length !== 0
         )
         .map((comment) => {
-          return <Comment key={comment.id} comment={comment} />;
+          return <Comment key={comment.id} comment={comment} breakPointUp={matches} />;
         })}
     </List>
   );
