@@ -47,4 +47,5 @@ export const modalStyle = {
   border: "2px solid #bf1d1d",
   boxShadow: 24,
   p: 4,
+  overflowY: "scroll", 
 };
