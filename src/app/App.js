@@ -9,6 +9,7 @@ import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton
 import Subreddit from "../routes/Subreddit/Subreddit";
 
 import "../App.css";
+import MobilePost from "../routes/Mobile/MobilePost";
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -35,6 +36,8 @@ const App = () => {
                   element={<Subreddit matches={matches} />}
                 />
               </Route>
+              {!matches && <Route path="/post" element={<MobilePost />} />}
+              <Route path="/post" element={<PopularPosts matches={matches} />} />
             </Routes>
           </Box>
 
