@@ -56,5 +56,8 @@ export const { setPost, setPostOpen } = postSlice.actions;
 export const selectPost = (state) => state.post.postInfo;
 export const selectPostOpen = (state) => state.post.postOpen;
 export const selectComments = (state) => state.post.comments;
+export const selectPostLoadingStatus = (state) =>
+  state.post.status === "loading";
+export const selectPostError = (state) => state.post.error;
 
 export default postSlice.reducer;
