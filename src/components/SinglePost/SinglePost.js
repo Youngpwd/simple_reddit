@@ -1,7 +1,7 @@
 import React from "react";
 import { formattedTime } from "../../util/formatTime";
 import ReactPlayer from "react-player";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
   Box,
@@ -16,10 +16,16 @@ import { useDispatch } from "react-redux";
 
 const SinglePost = ({ post, matches }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpen = (post) => {
+    //add if statement that checks matches, if matches is false, nav to mobilePost
     dispatch(setPost(post));
-    dispatch(setPostOpen(true));
+    if (matches) {
+      dispatch(setPostOpen(true));
+    } else {
+      navigate("/post");
+    }
   };
 
   const handlePlayerClick = (event) => {
