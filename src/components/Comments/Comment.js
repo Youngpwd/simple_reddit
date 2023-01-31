@@ -4,16 +4,31 @@ import {
   Divider,
   Collapse,
   Avatar,
-  //   Typography,
   ListItemText,
   ListItemButton,
   List,
 } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Comment = ({ comment }) => {
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const result = await axios.get(
+          `https://www.reddit.com/user/${comment.author}/about.json`
+        );
+        setUserData(result.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserData();
+  }, [comment.author]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -22,15 +37,17 @@ const Comment = ({ comment }) => {
   return (
     <>
       <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar
-            alt={comment.author}
-            src={comment.thumbnail}
-            style={{ width: 50, height: 50 }}
-          />
-        </ListItemAvatar>
+        {userData ? (
+          <ListItemAvatar>
+            <Avatar
+              alt={comment.author}
+              src={userData.icon_img.split("?")[0] }
+              style={{ width: 50, height: 50 }}
+            />
+          </ListItemAvatar>
+        ) : null}
         <ListItemText primary={comment.author} secondary={comment.body} />
-        {(comment.replies && comment.replies.data?.children.length > 1) && (
+        {comment.replies && comment.replies.data?.children.length > 1 && (
           <ListItemButton
             onClick={handleClick}
             sx={{ width: "fit-content", position: "absolute", right: 0 }}
