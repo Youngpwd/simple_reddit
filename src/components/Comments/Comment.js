@@ -12,7 +12,7 @@ import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Comment = ({ comment, breakPointUp }) => {
+const Comment = ({ comment, breakPointUp, parentAuthor }) => {
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -53,8 +53,11 @@ const Comment = ({ comment, breakPointUp }) => {
           primaryTypographyProps={{
             variant: breakPointUp ? "subtitle" : "caption",
           }}
-          primary={comment.author}
+          primary={`${comment.author} ${
+            !breakPointUp && parentAuthor ? `to ${parentAuthor}` : ""
+          }`}
           secondary={comment.body}
+          sx={{ mt: 2 }}
         />
         {comment.replies && comment.replies.data?.children.length > 1 && (
           <ListItemButton
@@ -84,6 +87,7 @@ const Comment = ({ comment, breakPointUp }) => {
                   key={reply.data.id}
                   comment={reply.data}
                   breakPointUp={breakPointUp}
+                  parentAuthor={comment.author}
                 />
               ))}
           </List>
