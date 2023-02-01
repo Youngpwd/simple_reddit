@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { selectComments } from "../../features/PostSlice/PostSlice";
 import { List, useMediaQuery } from "@mui/material";
 import Comment from "./Comment";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 
 const Comments = () => {
   const comments = useSelector(selectComments);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  // const theme = useTheme();
+  const matches = useMediaQuery(`(min-width:426px)`);     //theme.breakpoints.up("sm")
 
   return (
     <List sx={{ width: "100" }}>
