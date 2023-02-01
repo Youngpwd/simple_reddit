@@ -47,6 +47,27 @@ const Comment = ({ comment, breakPointUp, parentAuthor }) => {
                 height: breakPointUp ? 50 : 30,
               }}
             />
+            {comment.replies &&
+              comment.replies.data?.children.length > 1 &&
+              !breakPointUp && (
+                <ListItemButton
+                  onClick={handleClick}
+                  sx={{
+                    width: "fit-content",
+                    padding: "5px",
+                    marginTop: 2,
+                  }}
+                >
+                  {
+                    comment.replies.data.children.filter(
+                      (reply) =>
+                        reply.data.author && reply.data.author.length !== 0
+                    ).length
+                  }{" "}
+                  {breakPointUp ? "Replies" : null}
+                  {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+              )}
           </ListItemAvatar>
         ) : null}
         <ListItemText
@@ -60,25 +81,26 @@ const Comment = ({ comment, breakPointUp, parentAuthor }) => {
           secondary={comment.body}
           sx={{ mt: 2 }}
         />
-        {comment.replies && comment.replies.data?.children.length > 1 && (
-          <ListItemButton
-            onClick={handleClick}
-            sx={{
-              width: "fit-content",
-              position: "absolute",
-              right: breakPointUp ? 0 : 200,
-              bottom: breakPointUp ? null : 0,
-            }}
-          >
-            {
-              comment.replies.data.children.filter(
-                (reply) => reply.data.author && reply.data.author.length !== 0
-              ).length
-            }{" "}
-            {breakPointUp ? "Replies" : null}
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-        )}
+        {comment.replies &&
+          comment.replies.data?.children.length > 1 &&
+          breakPointUp && (
+            <ListItemButton
+              onClick={handleClick}
+              sx={{
+                width: "fit-content",
+                position: "absolute",
+                right: 0,
+              }}
+            >
+              {
+                comment.replies.data.children.filter(
+                  (reply) => reply.data.author && reply.data.author.length !== 0
+                ).length
+              }{" "}
+              {breakPointUp ? "Replies" : null}
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+          )}
       </ListItem>
       <Divider />
       <Collapse in={open} timeout="auto" unmountOnExit>
