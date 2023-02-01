@@ -21,7 +21,7 @@ const SinglePost = ({ post, matches }) => {
   const handleOpen = (post) => {
     //add if statement that checks matches, if matches is false, nav to mobilePost
     dispatch(setPost(post));
-    if (matches) {
+    if (matches) { //matches is 600px and up viewport 
       dispatch(setPostOpen(true));
     } else {
       navigate("/post");
