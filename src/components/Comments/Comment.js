@@ -52,6 +52,7 @@ const Comment = ({ comment, breakPointUp, parentAuthor }) => {
         <ListItemText
           primaryTypographyProps={{
             variant: breakPointUp ? "subtitle" : "caption",
+            gutterBottom: true,
           }}
           primary={`${comment.author} ${
             !breakPointUp && parentAuthor ? `to ${parentAuthor}` : ""
@@ -62,7 +63,12 @@ const Comment = ({ comment, breakPointUp, parentAuthor }) => {
         {comment.replies && comment.replies.data?.children.length > 1 && (
           <ListItemButton
             onClick={handleClick}
-            sx={{ width: "fit-content", position: "absolute", right: 0 }}
+            sx={{
+              width: "fit-content",
+              position: "absolute",
+              right: breakPointUp ? 0 : 200,
+              bottom: breakPointUp ? null : 0,
+            }}
           >
             {
               comment.replies.data.children.filter(
