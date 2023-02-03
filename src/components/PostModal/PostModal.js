@@ -34,11 +34,12 @@ const PostModal = ({ open, matches }) => {
   const error = useSelector(selectPostError);
 
   useEffect(() => {
-    if (!hasFetched.current) {
+    if (!hasFetched.current && post !== undefined) {
+      console.log("running fetchcomment modal");
       dispatch(fetchComments(post.permalink));
       hasFetched.current = true;
     }
-  }, [dispatch, post.permalink]);
+  }, [dispatch, post]);
 
   const handleClose = () => {
     hasFetched.current = false;
