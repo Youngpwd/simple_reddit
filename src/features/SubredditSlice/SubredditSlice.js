@@ -49,7 +49,7 @@ export const fetchSubreddit = createAsyncThunk(
     const postsResult = await axios.get(
       `https://www.reddit.com/r/${subreddit}/${sortType}.json?limit=100`
     );
-    console.log(aboutResult.data.data, postsResult.data.data);
+    // console.log(aboutResult.data.data, postsResult.data.data);
     return {
       about: aboutResult.data.data,
       posts: postsResult.data.data.children.map((post) => post.data),

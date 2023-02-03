@@ -47,7 +47,7 @@ export const fetchComments = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
-    console.log(commentResults.data); //[1].data.children
+    // console.log(commentResults.data); //[1].data.children
     return commentResults.data[1].data.children.map((comment) => comment.data);
   }
 );

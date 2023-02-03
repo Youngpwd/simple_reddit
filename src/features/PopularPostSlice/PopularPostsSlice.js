@@ -39,7 +39,7 @@ export const fetchPopularPosts = createAsyncThunk(
     const result = await axios.get(
       `https://www.reddit.com/r/popular/${sortType}.json?limit=100`
     );
-    console.log(result.data.data);
+    // console.log(result.data.data);
     return result.data.data.children.map((post) => post.data);
   }
 );
