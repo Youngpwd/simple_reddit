@@ -42,9 +42,11 @@ const MobilePost = () => {
   }, [post, post.created_utc]);
 
   useEffect(() => {
-    if (!hasFetched.current) {
+    if (!hasFetched.current && post.permalink) {
+      // console.log("running dispach fetchComments mobile");
       dispatch(fetchComments(post.permalink));
       hasFetched.current = true;
+      // console.log("dispatch fetchComments mobile complete");
     }
   }, [dispatch, post.permalink]);
 
