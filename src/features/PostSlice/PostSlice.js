@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const POST_KEY = "post_data";
+
 const initialState = {
-  postInfo: {},
+  postInfo: JSON.parse(localStorage.getItem(POST_KEY)) || {},
   postOpen: false,
   comments: [],
   status: "idle",
@@ -15,6 +17,7 @@ const postSlice = createSlice({
   reducers: {
     setPost: (state, action) => {
       state.postInfo = action.payload;
+      localStorage.setItem(POST_KEY, JSON.stringify(state.postInfo));
     },
     setPostOpen: (state, action) => {
       state.postOpen = action.payload;
