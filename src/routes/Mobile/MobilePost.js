@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardContent,
 } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectPost,
@@ -28,6 +28,18 @@ const MobilePost = () => {
   const post = useSelector(selectPost);
   const loading = useSelector(selectPostLoadingStatus);
   const error = useSelector(selectPostError);
+
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    if (post.created_utc) {
+      const result = formattedTime(post.created_utc);
+      if (typeof result === "string") {
+        // console.log(result);
+        setFormattedDate(result);
+      }
+    }
+  }, [post, post.created_utc]);
 
   useEffect(() => {
     if (!hasFetched.current) {
@@ -131,7 +143,7 @@ const MobilePost = () => {
                 </Link>
               </Typography>
               <Typography variant="caption" color="textSecondary">
-                posted by {post.author} {formattedTime(post.created_utc)}
+                posted by {post.author} {formattedDate}
               </Typography>
               <Typography align="left" mt={2}>
                 {post.score} points
