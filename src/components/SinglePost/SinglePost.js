@@ -19,9 +19,10 @@ const SinglePost = ({ post, matches }) => {
   const navigate = useNavigate();
 
   const handleOpen = (post) => {
-    //add if statement that checks matches, if matches is false, nav to mobilePost
     dispatch(setPost(post));
-    if (matches) { //matches is 600px and up viewport 
+    // console.log(post, "this is post obj being dispatched to PostSlice");
+    if (matches) { //add if statement that checks matches, if matches is false, nav to mobilePost
+      //matches is 600px and up viewport
       dispatch(setPostOpen(true));
     } else {
       navigate("/post");
