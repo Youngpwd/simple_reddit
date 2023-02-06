@@ -42,7 +42,10 @@ const App = () => {
                 path="/post"
                 element={<PopularPosts matches={matches} />}
               />
-              <Route path="/search" element={<SearchResults />} />
+              <Route
+                path="/search"
+                element={<SearchResults matches={matches} />}
+              />
             </Routes>
           </Box>
 
