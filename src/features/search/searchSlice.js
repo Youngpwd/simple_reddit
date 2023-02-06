@@ -5,7 +5,7 @@ const searchSlice = createSlice({
   name: "search",
   initialState: {
     searchTerm: "",
-    type: "post",
+    type: "link",
     searchResults: [],
     status: "idle",
     error: null,
@@ -39,9 +39,10 @@ export const fetchSearchResults = createAsyncThunk(
   async (payload) => {
     const { searchTerm, type } = payload;
     const result = await axios.get(
-      `https://www.reddit.com/search.json/?q=${searchTerm}&type=${type}&limit=100`
+      `https://www.reddit.com/search.json?q=${searchTerm}&type=${type}&limit=100`
     );
-    return result.data;
+    console.log(result.data.data.children);
+    return result.data.data.children.map((item) => item.data);
   }
 );
 
@@ -50,5 +51,6 @@ export const selectType = (state) => state.search.type;
 export const selectSearchTerm = (state) => state.search.searchTerm;
 export const selectSearchStatus = (state) => state.search.status === "loading";
 export const selectSearchError = (state) => state.search.error;
+export const selectSearchResults = (state) => state.search.searchResults;
 
 export default searchSlice.reducer;
