@@ -41,7 +41,7 @@ const Comment = ({ comment, breakPointUp, parentAuthor }) => {
           <ListItemAvatar>
             <Avatar
               alt={comment.author}
-              src={userData.icon_img.split("?")[0]}
+              src={userData.icon_img?.split("?")[0]}
               style={{
                 width: breakPointUp ? 50 : 30,
                 height: breakPointUp ? 50 : 30,
