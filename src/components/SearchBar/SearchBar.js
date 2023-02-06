@@ -1,19 +1,19 @@
-import React from "react";
+import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
-import { selectSearchTerm, setSearchTerm } from "../../features/search/searchSlice";
+import { setSearchTerm } from "../../features/search/searchSlice";
 
 const SearchBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const searchTerm = useSelector(selectSearchTerm);
+  const [term, setTerm] = useState("");
 
   const handleSearch = (event) => {
     event.preventDefault();
-    navigate(`/search/?q=${searchTerm}`);
+    dispatch(setSearchTerm(term));
+    navigate(`/search/?q=${term}`);
   };
 
   return (
@@ -23,7 +23,7 @@ const SearchBar = () => {
           id="search-field"
           placeholder="Search..."
           variant="outlined"
-          value={searchTerm}
+          value={term}
           required
           InputProps={{
             startAdornment: (
@@ -32,7 +32,7 @@ const SearchBar = () => {
               </InputAdornment>
             ),
           }}
-            onChange={(event) => dispatch(setSearchTerm(event.target.value))}
+          onChange={(event) => setTerm(event.target.value)}
         >
           <IconButton type="submit">
             <SearchIcon />
