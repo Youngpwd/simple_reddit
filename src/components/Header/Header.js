@@ -11,6 +11,7 @@ import {
   Switch,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 
 const modeStyle = { width: "1em", height: "none", m: "auto 0" };
 
@@ -45,6 +46,7 @@ const Header = ({ toggleMode, mode, matches }) => {
               Simple Reddit
             </Typography>
           ) : null}
+          <SearchBar/>
           <Box
             component="div"
             sx={{
