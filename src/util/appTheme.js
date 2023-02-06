@@ -27,6 +27,15 @@ export const createAppTheme = (mode) => {
           },
         },
       },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            backgroundColor: mode === "light" ? "#bf1d1d" : null,
+            margin: "1rem",
+
+          }
+        }
+      }
     },
   });
   return appTheme;
