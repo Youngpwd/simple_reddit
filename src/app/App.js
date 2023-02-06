@@ -7,6 +7,7 @@ import { createAppTheme } from "../util/appTheme";
 import PopularPosts from "../routes/PopularPost/PopularPosts";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
 import Subreddit from "../routes/Subreddit/Subreddit";
+import SearchResults from "../routes/Search/SearchResults";
 
 import "../App.css";
 import MobilePost from "../routes/Mobile/MobilePost";
@@ -37,7 +38,11 @@ const App = () => {
                 />
               </Route>
               {!matches && <Route path="/post" element={<MobilePost />} />}
-              <Route path="/post" element={<PopularPosts matches={matches} />} />
+              <Route
+                path="/post"
+                element={<PopularPosts matches={matches} />}
+              />
+              <Route path="/search" element={<SearchResults />} />
             </Routes>
           </Box>
 
