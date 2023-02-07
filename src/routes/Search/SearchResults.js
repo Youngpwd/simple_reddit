@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { Container, Tabs, Tab, Button } from "@mui/material";
+import { Container, Tabs, Tab, Button, Chip, Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchSearchResults,
@@ -32,6 +32,8 @@ const SearchResults = ({ matches }) => {
 
   const [offset, setOffset] = useState(10);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [nsfwToggle, setNsfwToggle] = useState(0);
+  const [chipStyle, setChipStyle] = useState("outlined");
 
   const [searchParams] = useSearchParams();
   const urlTerm = searchParams.get("q");
@@ -41,10 +43,16 @@ const SearchResults = ({ matches }) => {
       hasFetched.current = false;
     }
     if (!hasFetched.current) {
-      dispatch(fetchSearchResults({ searchTerm: searchTerm, type: type }));
+      dispatch(
+        fetchSearchResults({
+          searchTerm: searchTerm,
+          type: type,
+          nsfw: nsfwToggle,
+        })
+      );
       hasFetched.current = true;
     }
-  }, [dispatch, searchTerm, type, urlTerm]);
+  }, [dispatch, searchTerm, type, urlTerm, nsfwToggle]);
 
   const handleTabChange = (event, newValue) => {
     setOffset(10);
@@ -60,6 +68,16 @@ const SearchResults = ({ matches }) => {
     }
   };
 
+  const handleClick = () => {
+    if (nsfwToggle === 0) {
+      setNsfwToggle(1);
+      setChipStyle("filled");
+    } else {
+      setNsfwToggle(0);
+      setChipStyle("outlined");
+    }
+  };
+
   return (
     <Container maxWidth="md">
       <Tabs
@@ -72,6 +90,14 @@ const SearchResults = ({ matches }) => {
         <Tab label="Post" value="link" />
         <Tab label="Communites" value="sr" />
       </Tabs>
+      <Chip
+        label="NSFW"
+        variant={chipStyle}
+        onClick={handleClick}
+        avatar={<Avatar>18+</Avatar>}
+        color="primary"
+        sx={{ marginBottom: ".7rem", margin: !matches ? "1rem auto" : null }}
+      />
       <>
         {loading ? (
           <Loading />
@@ -91,9 +117,16 @@ const SearchResults = ({ matches }) => {
           </>
         ) : type === "sr" ? (
           <>
-            {searchResults.slice(0, offset).map((result) => (
-              <SubredditResults subreddit={result} key={result.id} />
-            ))}
+            {searchResults
+              .filter((result) => result.subscribers !== null)
+              .slice(0, offset)
+              .map((result) => (
+                <SubredditResults
+                  subreddit={result}
+                  key={result.id}
+                  matches={matches}
+                />
+              ))}
             {!buttonDisabled && searchResults.length > 10 && (
               <Button variant="outlined" onClick={loadMorePost}>
                 Load More
