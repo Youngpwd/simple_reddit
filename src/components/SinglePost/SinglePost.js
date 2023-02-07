@@ -105,6 +105,11 @@ const SinglePost = ({ post, matches }) => {
               {" "}
               {post.subreddit_name_prefixed}
             </Link>
+            {post.over18 && (
+            <span style={{ fontSize: "10px", color: "red", marginLeft: "3px" }}>
+              **NSFW**
+            </span>
+          )}
           </Typography>
           <Typography variant="caption" color="textSecondary">
             posted by {post.author} {formattedTime(post.created_utc)}
