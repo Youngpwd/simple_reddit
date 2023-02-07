@@ -105,7 +105,7 @@ const SinglePost = ({ post, matches }) => {
               {" "}
               {post.subreddit_name_prefixed}
             </Link>
-            {post.over18 && (
+            {(post.over_18 || post.over18 )&& (
             <span style={{ fontSize: "10px", color: "red", marginLeft: "3px" }}>
               **NSFW**
             </span>
