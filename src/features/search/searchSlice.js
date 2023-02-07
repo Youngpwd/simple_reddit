@@ -6,6 +6,7 @@ const searchSlice = createSlice({
   initialState: {
     searchTerm: "",
     type: "link",
+    sort: "relevance",
     searchResults: [],
     status: "idle",
     error: null,
@@ -16,6 +17,9 @@ const searchSlice = createSlice({
     },
     setType: (state, action) => {
       state.type = action.payload;
+    },
+    setSort: (state, action) => {
+      state.sort = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -37,20 +41,21 @@ const searchSlice = createSlice({
 export const fetchSearchResults = createAsyncThunk(
   "search/fetchSearchResults",
   async (payload) => {
-    const { searchTerm, type, nsfw } = payload;
+    const { searchTerm, type, nsfw, sort } = payload;
     const result = await axios.get(
-      `https://www.reddit.com/search.json?q=${searchTerm}&type=${type}&include_over_18=${nsfw}&limit=100`
+      `https://www.reddit.com/search.json?q=${searchTerm}&type=${type}&include_over_18=${nsfw}&sort=${sort}&limit=100`
     );
     console.log(result.data.data.children);
     return result.data.data.children.map((item) => item.data);
   }
 );
 
-export const { setSearchTerm, setType } = searchSlice.actions;
+export const { setSearchTerm, setType, setSort } = searchSlice.actions;
 export const selectType = (state) => state.search.type;
 export const selectSearchTerm = (state) => state.search.searchTerm;
 export const selectSearchStatus = (state) => state.search.status === "loading";
 export const selectSearchError = (state) => state.search.error;
 export const selectSearchResults = (state) => state.search.searchResults;
+export const selectSearchSort = state => state.search.sort;
 
 export default searchSlice.reducer;
