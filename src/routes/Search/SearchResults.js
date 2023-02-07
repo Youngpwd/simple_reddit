@@ -16,7 +16,7 @@ import ErrorPage from "../../components/ErrorPage/ErrorPage";
 import SinglePost from "../../components/SinglePost/SinglePost";
 import { selectPostOpen } from "../../features/PostSlice/PostSlice";
 import PostModal from "../../components/PostModal/PostModal";
-
+import SubredditResults from "../../components/SubredditResults/SubredditResults";
 
 const SearchResults = ({ matches }) => {
   const dispatch = useDispatch();
@@ -89,7 +89,20 @@ const SearchResults = ({ matches }) => {
             )}
             {open && <PostModal open={open} matches={matches} />}
           </>
-        ) : <ErrorPage />}
+        ) : type === "sr" ? (
+          <>
+            {searchResults.slice(0, offset).map((result) => (
+              <SubredditResults subreddit={result} key={result.id} />
+            ))}
+            {!buttonDisabled && searchResults.length > 10 && (
+              <Button variant="outlined" onClick={loadMorePost}>
+                Load More
+              </Button>
+            )}
+          </>
+        ) : (
+          <ErrorPage />
+        )}
       </>
     </Container>
   );
