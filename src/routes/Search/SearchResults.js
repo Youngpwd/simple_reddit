@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchSearchResults,
   selectSearchResults,
+  selectSearchSort,
   selectSearchStatus,
   selectSearchTerm,
   selectType,
@@ -17,6 +18,7 @@ import SinglePost from "../../components/SinglePost/SinglePost";
 import { selectPostOpen } from "../../features/PostSlice/PostSlice";
 import PostModal from "../../components/PostModal/PostModal";
 import SubredditResults from "../../components/SubredditResults/SubredditResults";
+import SearchFilter from "../../components/SearchFilter/SearchFilter";
 
 const SearchResults = ({ matches }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const SearchResults = ({ matches }) => {
   const error = useSelector(selectError);
   const searchResults = useSelector(selectSearchResults);
   const open = useSelector(selectPostOpen);
+  const sort = useSelector(selectSearchSort);
 
   const hasFetched = useRef(false);
 
@@ -49,11 +52,12 @@ const SearchResults = ({ matches }) => {
           searchTerm: searchTerm,
           type: type,
           nsfw: nsfwToggle,
+          sort: sort,
         })
       );
       hasFetched.current = true;
     }
-  }, [dispatch, searchTerm, type, urlTerm, nsfwToggle]);
+  }, [dispatch, searchTerm, type, urlTerm, nsfwToggle, sort]);
 
   const handleTabChange = (event, newValue) => {
     setOffset(10);
@@ -92,21 +96,32 @@ const SearchResults = ({ matches }) => {
         <Tab label="Post" value="link" />
         <Tab label="Communites" value="sr" />
       </Tabs>
-      <Chip
-        label="NSFW"
-        variant={chipStyle}
-        onClick={handleClick}
-        avatar={<Avatar>18+</Avatar>}
-        color="primary"
-        sx={{ marginBottom: ".7rem", margin: !matches ? "1rem auto" : null }}
-      />
+      <Container
+        disableGutters={true}
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignContent: "center",
+        }}
+      >
+        <Chip
+          label="NSFW"
+          variant={chipStyle}
+          onClick={handleClick}
+          avatar={<Avatar>18+</Avatar>}
+          color="primary"
+          sx={{margin: "auto 0"}}
+        />
+        {type === "link" && <SearchFilter />}
+      </Container>
       <>
         {loading ? (
           <Loading />
         ) : error ? (
           <ErrorPage />
         ) : type === "link" ? (
-          <>
+          <Container sx={{ marginTop: "5rem" }}>
             {searchResults.slice(0, offset).map((result) => (
               <SinglePost post={result} matches={matches} key={result.id} />
             ))}
@@ -124,7 +139,7 @@ const SearchResults = ({ matches }) => {
               </div>
             )}
             {open && <PostModal open={open} matches={matches} />}
-          </>
+          </Container>
         ) : type === "sr" ? (
           <>
             {searchResults
