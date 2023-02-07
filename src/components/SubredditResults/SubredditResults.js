@@ -1,14 +1,15 @@
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { formatNumber } from "../../util/formatNumber";
 
-const SubredditResults = ({ subreddit }) => {
+const SubredditResults = ({ subreddit, matches }) => {
   return (
     <Card
       sx={{
         minHeight: "100px",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
       }}
       variant="outlined"
     >
@@ -16,8 +17,11 @@ const SubredditResults = ({ subreddit }) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-start",
           width: "100%",
+          flexDirection: !matches ? "column" : null,
+          textAlign: !matches ? "center" : null,
+          alignContent: !matches ? "center" : null,
         }}
       >
         <Box
@@ -25,7 +29,9 @@ const SubredditResults = ({ subreddit }) => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-start",
+            justifyContent: matches ? "flex-start" : "center",
+            width: "auto",
+            marginRight: matches ? "5rem" : 0,
           }}
         >
           <CardMedia
@@ -42,10 +48,13 @@ const SubredditResults = ({ subreddit }) => {
               height: "50px",
               objectFit: "contain",
               borderRadius: "50%",
-              marginRight: 2,
+              marginRight: 1,
             }}
           />
-          <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="subtitle2"
+            sx={{ fontWeight: "bold", width: "auto" }}
+          >
             /r/{subreddit.display_name}
           </Typography>
           {subreddit.over18 && (
@@ -54,15 +63,23 @@ const SubredditResults = ({ subreddit }) => {
             </span>
           )}
         </Box>
-        <Typography variant="body1">{subreddit.public_description}</Typography>
         <Typography
           variant="body2"
-          sx={{
-            fontSize: "0.75rem",
-            color: "gray",
-          }}
+          align="left"
+          sx={{ width: matches ? "50%" : "100%" }}
+          mt={!matches ? 5 : null}
         >
-          {subreddit.memberCount} members
+          {subreddit.public_description}
+        </Typography>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "gray",
+            width: !matches ? "100%" : null,
+          }}
+          p={3}
+        >
+          Members:<b> {formatNumber(subreddit.subscribers)}</b>
         </Typography>
       </CardContent>
     </Card>
