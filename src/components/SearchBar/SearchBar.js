@@ -25,6 +25,7 @@ const SearchBar = () => {
           variant="outlined"
           value={term}
           required
+          autocomplete="off"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
