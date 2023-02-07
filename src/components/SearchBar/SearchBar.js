@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { setSearchTerm } from "../../features/search/searchSlice";
 
