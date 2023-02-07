@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { formatNumber } from "../../util/formatNumber";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SubredditResults = ({ subreddit, matches }) => {
   const navigate = useNavigate();
@@ -57,15 +57,7 @@ const SubredditResults = ({ subreddit, matches }) => {
             }}
           />
           <Typography variant="subtitle2" sx={{ width: "auto" }}>
-            {/* <Link
-              to={`/r/${subreddit.display_name}`}
-              style={{
-                textDecoration: "none",
-                color: "#bf1d1d",
-              }}
-            > */}
             /r/{subreddit.display_name}
-            {/* </Link> */}
           </Typography>
           {subreddit.over18 && (
             <span style={{ fontSize: "10px", color: "red", marginLeft: "3px" }}>
