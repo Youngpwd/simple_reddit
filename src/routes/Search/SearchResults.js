@@ -70,12 +70,11 @@ const SearchResults = ({ matches }) => {
   };
 
   const handleClick = () => {
+    setOffset(10);
     if (nsfwToggle === 0) {
-      setOffset(10);
       setNsfwToggle(1);
       setChipStyle("filled");
     } else {
-      setOffset(10);
       setNsfwToggle(0);
       setChipStyle("outlined");
     }
