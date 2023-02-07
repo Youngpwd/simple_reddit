@@ -21,7 +21,8 @@ const SinglePost = ({ post, matches }) => {
   const handleOpen = (post) => {
     dispatch(setPost(post));
     // console.log(post, "this is post obj being dispatched to PostSlice");
-    if (matches) { //add if statement that checks matches, if matches is false, nav to mobilePost
+    if (matches) {
+      //add if statement that checks matches, if matches is false, nav to mobilePost
       //matches is 600px and up viewport
       dispatch(setPostOpen(true));
     } else {
@@ -71,13 +72,17 @@ const SinglePost = ({ post, matches }) => {
           <Container maxWidth="xs" sx={{ float: "right" }}>
             <a
               className="thumbnail-link"
-              href={post.url}
+              href={post.url || post.preview.images[0].source.url}
               target="_blank"
               rel="noopener noreferrer"
             >
               <CardMedia
                 component="img"
-                image={post.thumbnail || post.url_overridden_by_dest}
+                image={
+                  post.thumbnail ||
+                  post.url_overridden_by_dest ||
+                  post.preview.images[0].source.url
+                }
                 style={{
                   width: `${post.thumbnail_width}px`,
                   height: `${post.thumbnail_height}px`,
