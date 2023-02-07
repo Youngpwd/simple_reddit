@@ -35,9 +35,17 @@ const Posts = ({
           <SinglePost post={post} matches={matches} key={post.id} />
         ))}
         {!buttonDisabled && posts.length > 10 && (
-          <Button variant="outlined" onClick={loadMorePost}>
-            Load More
-          </Button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            <Button variant="outlined" onClick={loadMorePost} sx={{ mt: 2 }}>
+              Load More
+            </Button>
+          </div>
         )}
         {open && <PostModal open={open} matches={matches} />}
       </>
