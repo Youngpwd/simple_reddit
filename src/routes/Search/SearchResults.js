@@ -43,6 +43,7 @@ const SearchResults = ({ matches }) => {
       hasFetched.current = false;
     }
     if (!hasFetched.current) {
+      setOffset(10);
       dispatch(
         fetchSearchResults({
           searchTerm: searchTerm,
@@ -70,9 +71,11 @@ const SearchResults = ({ matches }) => {
 
   const handleClick = () => {
     if (nsfwToggle === 0) {
+      setOffset(10);
       setNsfwToggle(1);
       setChipStyle("filled");
     } else {
+      setOffset(10);
       setNsfwToggle(0);
       setChipStyle("outlined");
     }
@@ -109,9 +112,17 @@ const SearchResults = ({ matches }) => {
               <SinglePost post={result} matches={matches} key={result.id} />
             ))}
             {!buttonDisabled && searchResults.length > 10 && (
-              <Button variant="outlined" onClick={loadMorePost}>
-                Load More
-              </Button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <Button variant="outlined" onClick={loadMorePost}>
+                  Load More
+                </Button>
+              </div>
             )}
             {open && <PostModal open={open} matches={matches} />}
           </>
@@ -128,9 +139,17 @@ const SearchResults = ({ matches }) => {
                 />
               ))}
             {!buttonDisabled && searchResults.length > 10 && (
-              <Button variant="outlined" onClick={loadMorePost}>
-                Load More
-              </Button>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <Button variant="outlined" onClick={loadMorePost}>
+                  Load More
+                </Button>
+              </div>
             )}
           </>
         ) : (
