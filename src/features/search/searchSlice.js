@@ -37,9 +37,9 @@ const searchSlice = createSlice({
 export const fetchSearchResults = createAsyncThunk(
   "search/fetchSearchResults",
   async (payload) => {
-    const { searchTerm, type } = payload;
+    const { searchTerm, type, nsfw } = payload;
     const result = await axios.get(
-      `https://www.reddit.com/search.json?q=${searchTerm}&type=${type}&limit=100`
+      `https://www.reddit.com/search.json?q=${searchTerm}&type=${type}&include_over_18=${nsfw}&limit=100`
     );
     console.log(result.data.data.children);
     return result.data.data.children.map((item) => item.data);
