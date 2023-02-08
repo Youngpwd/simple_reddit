@@ -11,6 +11,7 @@ import {
 import Loading from "../../components/Loading/Loading";
 import ErrorPage from "../../components/ErrorPage/ErrorPage";
 import Posts from "../../components/Posts/Posts";
+import { setScrollY } from "../../features/PostSlice/PostSlice";
 
 const PopularPosts = ({ matches }) => {
   const posts = useSelector(selectPosts);
@@ -44,6 +45,7 @@ const PopularPosts = ({ matches }) => {
     setButtonDisabled(false);
     hasFetched.current = false;
     dispatch(setCurrentSort(newValue));
+    dispatch(setScrollY(null));
   };
 
   return (
