@@ -16,6 +16,7 @@ import SubredditBanner from "../../components/SubredditBanner/SubredditBanner";
 import SubredditAbout from "../../components/SubredditAbout/SubredditAbout";
 import Posts from "../../components/Posts/Posts";
 import { subredditPostsStyle } from "../../util/appTheme";
+import { setScrollY } from "../../features/PostSlice/PostSlice";
 
 const Subreddit = ({ matches }) => {
   const posts = useSelector(selectSubredditPosts);
@@ -49,6 +50,7 @@ const Subreddit = ({ matches }) => {
     setButtonDisabled(false);
     hasFetched.current = false;
     dispatch(setCurrentSort(newValue));
+    dispatch(setScrollY(null));
   };
 
   return (
