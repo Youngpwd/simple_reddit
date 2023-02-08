@@ -6,6 +6,7 @@ import {
   Container,
   CardHeader,
   CardContent,
+  Button,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +22,7 @@ import { Link } from "react-router-dom";
 import Comments from "../../components/Comments/Comments";
 import Loading from "../../components/Loading/Loading";
 import ErrorPage from "../../components/ErrorPage/ErrorPage";
+import { useNavigate } from "react-router-dom";
 
 const MobilePost = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,8 @@ const MobilePost = () => {
   const error = useSelector(selectPostError);
 
   const [formattedDate, setFormattedDate] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (post.created_utc) {
@@ -49,6 +53,10 @@ const MobilePost = () => {
       // console.log("dispatch fetchComments mobile complete");
     }
   }, [dispatch, post.permalink]);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const postBody = (post) => {
     if (post.selftext) {
@@ -85,6 +93,11 @@ const MobilePost = () => {
                 variant: "title",
               }}
             />
+            <span>
+              <Button variant="outlined" onClick={handleBack}>
+                Go Back
+              </Button>
+            </span>
             {post.post_hint === "hosted:video" ? (
               <Container maxWidth="sm">
                 <ReactPlayer
