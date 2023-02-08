@@ -93,11 +93,6 @@ const MobilePost = () => {
                 variant: "title",
               }}
             />
-            <span>
-              <Button variant="outlined" onClick={handleBack}>
-                Go Back
-              </Button>
-            </span>
             {post.post_hint === "hosted:video" ? (
               <Container maxWidth="sm">
                 <ReactPlayer
@@ -157,6 +152,20 @@ const MobilePost = () => {
                   {post.subreddit_name_prefixed}
                 </Link>
               </Typography>
+              <span>
+                <Button
+                  variant="outlined"
+                  onClick={handleBack}
+                  size="small"
+                  sx={{
+                    marginBottom: "1rem",
+                    marginRight: ".5rem",
+                    float: "right",
+                  }}
+                >
+                  Go Back
+                </Button>
+              </span>
               <Typography variant="caption" color="textSecondary">
                 posted by {post.author} {formattedDate}
               </Typography>
