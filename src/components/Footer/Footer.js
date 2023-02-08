@@ -53,9 +53,13 @@ const Footer = ({ matches }) => {
           color="inherit"
           variant="caption"
           p={3}
-          sx={{
-            "&:hover": { textDecorationColor: "red", fontSize: "2rem" },
-          }}
+          sx={
+            matches
+              ? {
+                  "&:hover": { textDecorationColor: "red", fontSize: "2rem" },
+                }
+              : null
+          }
         >
           https://github.com/Youngpwd/simple_reddit
         </Link>
