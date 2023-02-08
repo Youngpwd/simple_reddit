@@ -5,12 +5,11 @@ import { ThemeProvider, useTheme } from "@mui/material/styles";
 import Header from "../components/Header/Header";
 import { createAppTheme } from "../util/appTheme";
 import PopularPosts from "../routes/PopularPost/PopularPosts";
-import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
 import Subreddit from "../routes/Subreddit/Subreddit";
 import SearchResults from "../routes/Search/SearchResults";
-
 import "../App.css";
 import MobilePost from "../routes/Mobile/MobilePost";
+import Footer from "../components/Footer/Footer";
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -48,8 +47,7 @@ const App = () => {
               />
             </Routes>
           </Box>
-
-          <ScrollToTopButton />
+          <Footer/>
         </Container>
       </ThemeProvider>
     </>
