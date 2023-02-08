@@ -5,13 +5,19 @@ import { selectPostLoadingStatus } from "../../features/PostSlice/PostSlice";
 import { selectSearchStatus } from "../../features/search/searchSlice";
 import { selectSubredditLoadingStatus } from "../../features/SubredditSlice/SubredditSlice";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
-const Footer = ({matches}) => {
+const Footer = ({ matches }) => {
   const popularPostsLoading = useSelector(selectLoadingStatus);
   const postLoading = useSelector(selectPostLoadingStatus);
   const searchLoading = useSelector(selectSearchStatus);
   const subredditLoading = useSelector(selectSubredditLoadingStatus);
+  const location = useLocation();
+
+  if (location.pathname === "/post") {
+    return null;
+  }
 
   return popularPostsLoading ||
     postLoading ||
