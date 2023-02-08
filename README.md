@@ -5,7 +5,7 @@ This is a Frontend project developed as a part of Codecademy's FullStack course.
 
 ## Technologies Used
 The technologies used in this project are:
-- React
+- React.js
 - react-redux
 - redux-toolkit
 - material-ui
