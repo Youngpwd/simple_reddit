@@ -4,6 +4,7 @@ import SinglePost from "../SinglePost/SinglePost";
 import PostModal from "../PostModal/PostModal";
 import { useSelector } from "react-redux";
 import { selectPostOpen } from "../../features/PostSlice/PostSlice";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 
 const Posts = ({
   matches,
@@ -35,16 +36,11 @@ const Posts = ({
           <SinglePost post={post} matches={matches} key={post.id} />
         ))}
         {!buttonDisabled && posts.length > 10 && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <Button variant="outlined" onClick={loadMorePost} sx={{ mt: 2 }}>
+          <div className="bottom-button">
+            <Button variant="outlined" onClick={loadMorePost}>
               Load More
             </Button>
+            <ScrollToTopButton />
           </div>
         )}
         {open && <PostModal open={open} matches={matches} />}

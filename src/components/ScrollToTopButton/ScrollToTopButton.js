@@ -26,11 +26,7 @@ const ScrollToTopButton = () => {
 
   return (
     showButton && (
-      <IconButton
-        sx={{ position: "absolute", right: "10rem" }}
-        onClick={handleClick}
-        color="primary"
-      >
+      <IconButton onClick={handleClick} color="primary">
         <ArrowUpwardRoundedIcon
           sx={{
             width: "4rem",

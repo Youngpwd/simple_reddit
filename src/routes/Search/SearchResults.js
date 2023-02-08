@@ -19,6 +19,7 @@ import { selectPostOpen } from "../../features/PostSlice/PostSlice";
 import PostModal from "../../components/PostModal/PostModal";
 import SubredditResults from "../../components/SubredditResults/SubredditResults";
 import SearchFilter from "../../components/SearchFilter/SearchFilter";
+import ScrollToTopButton from "../../components/ScrollToTopButton/ScrollToTopButton";
 
 const SearchResults = ({ matches }) => {
   const dispatch = useDispatch();
@@ -111,7 +112,7 @@ const SearchResults = ({ matches }) => {
           onClick={handleClick}
           avatar={<Avatar>18+</Avatar>}
           color="primary"
-          sx={{margin: "auto 0"}}
+          sx={{ margin: "auto 0" }}
         />
         {type === "link" && <SearchFilter />}
       </Container>
@@ -121,25 +122,23 @@ const SearchResults = ({ matches }) => {
         ) : error ? (
           <ErrorPage />
         ) : type === "link" ? (
-          <Container sx={{ marginTop: "5rem" }}>
-            {searchResults.slice(0, offset).map((result) => (
-              <SinglePost post={result} matches={matches} key={result.id} />
-            ))}
-            {!buttonDisabled && searchResults.length > 10 && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-              >
-                <Button variant="outlined" onClick={loadMorePost}>
-                  Load More
-                </Button>
-              </div>
-            )}
-            {open && <PostModal open={open} matches={matches} />}
-          </Container>
+          <>
+            <Container sx={{ marginTop: "5rem" }}>
+              {searchResults.slice(0, offset).map((result) => (
+                <SinglePost post={result} matches={matches} key={result.id} />
+              ))}
+              {!buttonDisabled && searchResults.length > 10 && (
+                <div className="bottom-button">
+                  <Button variant="outlined" onClick={loadMorePost}>
+                    Load More
+                  </Button>
+                  <ScrollToTopButton />
+                </div>
+              )}
+
+              {open && <PostModal open={open} matches={matches} />}
+            </Container>
+          </>
         ) : type === "sr" ? (
           <>
             {searchResults
@@ -153,16 +152,11 @@ const SearchResults = ({ matches }) => {
                 />
               ))}
             {!buttonDisabled && searchResults.length > 10 && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-              >
+              <div className="bottom-button">
                 <Button variant="outlined" onClick={loadMorePost}>
                   Load More
                 </Button>
+                <ScrollToTopButton />
               </div>
             )}
           </>
