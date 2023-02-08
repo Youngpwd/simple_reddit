@@ -1,8 +1,24 @@
 import React from "react";
 import { Link, Typography, Container, Card } from "@mui/material";
+import { selectLoadingStatus } from "../../features/PopularPostSlice/PopularPostsSlice";
+import { selectPostLoadingStatus } from "../../features/PostSlice/PostSlice";
+import { selectSearchStatus } from "../../features/search/searchSlice";
+import { selectSubredditLoadingStatus } from "../../features/SubredditSlice/SubredditSlice";
+import { useSelector } from "react-redux";
+import Loading from "../Loading/Loading";
 
-const Footer = ({ matches }) => {
-  return (
+const Footer = () => {
+  const popularPostsLoading = useSelector(selectLoadingStatus);
+  const postLoading = useSelector(selectPostLoadingStatus);
+  const searchLoading = useSelector(selectSearchStatus);
+  const subredditLoading = useSelector(selectSubredditLoadingStatus);
+
+  return popularPostsLoading ||
+    postLoading ||
+    searchLoading ||
+    subredditLoading ? (
+    <Loading />
+  ) : (
     <Container
       maxWidth=""
       disableGutters={true}
@@ -13,23 +29,12 @@ const Footer = ({ matches }) => {
     >
       <Card
         raised={true}
-        sx={
-          matches
-            ? {
-                margin: "1rem auto 0",
-                display: "flex",
-                justifyContent: "space-evenly",
-                width: "100%",
-              }
-            : {
-                marginTop: 5,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-              }
-        }
+        sx={{
+          margin: "1rem auto 0",
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+        }}
       >
         <Typography variant="caption" p={3}>
           Data displayed on this website does not belong to me and is used for
@@ -40,14 +45,10 @@ const Footer = ({ matches }) => {
           target="_blank"
           color="inherit"
           variant="caption"
-          sx={
-            matches
-              ? {
-                  "&:hover": { textDecorationColor: "red", fontSize: "2rem" },
-                }
-              : null
-          }
           p={3}
+          sx={{
+            "&:hover": { textDecorationColor: "red", fontSize: "2rem" },
+          }}
         >
           https://github.com/Youngpwd/simple_reddit
         </Link>
