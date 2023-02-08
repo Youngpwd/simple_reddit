@@ -11,7 +11,11 @@ import {
   Typography,
   CardContent,
 } from "@mui/material";
-import { setPost, setPostOpen } from "../../features/PostSlice/PostSlice";
+import {
+  setPost,
+  setPostOpen,
+  setScrollY,
+} from "../../features/PostSlice/PostSlice";
 import { useDispatch } from "react-redux";
 
 const SinglePost = ({ post, matches }) => {
@@ -26,6 +30,7 @@ const SinglePost = ({ post, matches }) => {
       //matches is 600px and up viewport
       dispatch(setPostOpen(true));
     } else {
+      dispatch(setScrollY(window.scrollY));
       navigate("/post");
     }
   };
@@ -105,11 +110,13 @@ const SinglePost = ({ post, matches }) => {
               {" "}
               {post.subreddit_name_prefixed}
             </Link>
-            {(post.over_18 || post.over18 )&& (
-            <span style={{ fontSize: "10px", color: "red", marginLeft: "3px" }}>
-              **NSFW**
-            </span>
-          )}
+            {(post.over_18 || post.over18) && (
+              <span
+                style={{ fontSize: "10px", color: "red", marginLeft: "3px" }}
+              >
+                **NSFW**
+              </span>
+            )}
           </Typography>
           <Typography variant="caption" color="textSecondary">
             posted by {post.author} {formattedTime(post.created_utc)}
