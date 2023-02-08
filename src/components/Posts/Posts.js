@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Tabs, Tab, Button } from "@mui/material";
 import SinglePost from "../SinglePost/SinglePost";
 import PostModal from "../PostModal/PostModal";
 import { useSelector } from "react-redux";
-import { selectPostOpen } from "../../features/PostSlice/PostSlice";
+import {
+  selectPostOpen,
+  selectScrollY,
+} from "../../features/PostSlice/PostSlice";
 import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 
 const Posts = ({
@@ -16,7 +19,13 @@ const Posts = ({
   loadMorePost,
   style,
 }) => {
+  const scrollY = useSelector(selectScrollY);
   const open = useSelector(selectPostOpen);
+
+  useEffect(() => {
+    window.scrollTo(0, scrollY);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container maxWidth="md" sx={matches ? style : { margin: "auto" }}>
