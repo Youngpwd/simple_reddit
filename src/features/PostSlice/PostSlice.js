@@ -9,6 +9,7 @@ const initialState = {
   comments: [],
   status: "idle",
   error: null,
+  scrollY: null, //for mobile
 };
 
 const postSlice = createSlice({
@@ -22,6 +23,9 @@ const postSlice = createSlice({
     setPostOpen: (state, action) => {
       state.postOpen = action.payload;
     },
+    setScrollY: (state, action) => {
+      state.scrollY = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -55,12 +59,13 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
-export const { setPost, setPostOpen } = postSlice.actions;
+export const { setPost, setPostOpen, setScrollY } = postSlice.actions;
 export const selectPost = (state) => state.post.postInfo;
 export const selectPostOpen = (state) => state.post.postOpen;
 export const selectComments = (state) => state.post.comments;
 export const selectPostLoadingStatus = (state) =>
   state.post.status === "loading";
 export const selectPostError = (state) => state.post.error;
+export const selectScrollY = (state) => state.post.scrollY;
 
 export default postSlice.reducer;
