@@ -47,7 +47,7 @@ const App = () => {
               />
             </Routes>
           </Box>
-          <Footer/>
+          <Footer matches={matches} />
         </Container>
       </ThemeProvider>
     </>
