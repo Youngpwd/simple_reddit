@@ -7,7 +7,7 @@ import { selectSubredditLoadingStatus } from "../../features/SubredditSlice/Subr
 import { useSelector } from "react-redux";
 import Loading from "../Loading/Loading";
 
-const Footer = () => {
+const Footer = ({matches}) => {
   const popularPostsLoading = useSelector(selectLoadingStatus);
   const postLoading = useSelector(selectPostLoadingStatus);
   const searchLoading = useSelector(selectSearchStatus);
@@ -33,6 +33,7 @@ const Footer = () => {
           margin: "1rem auto 0",
           display: "flex",
           justifyContent: "space-evenly",
+          flexDirection: !matches ? "column" : "row",
           width: "100%",
         }}
       >
